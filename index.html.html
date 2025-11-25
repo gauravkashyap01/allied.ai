@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Allied AI - The AI Operating System That Actually Works</title>
+<style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-base: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background: var(--color-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Sticky Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(var(--color-slate-900-rgb), 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-16) var(--space-32);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-teal-300);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-32);
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--color-gray-200);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-teal-300);
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-32);
+  background: linear-gradient(135deg, rgba(19, 52, 59, 1) 0%, rgba(31, 33, 33, 1) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(50, 184, 198, 0.15) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(33, 128, 141, 0.1) 0%, transparent 70%);
+  bottom: -150px;
+  left: -150px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 30px); }
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s var(--ease-standard);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-logo {
+  font-size: 48px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-teal-300);
+  margin-bottom: var(--space-16);
+  text-shadow: 0 0 30px rgba(50, 184, 198, 0.3);
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-200);
+  margin-bottom: var(--space-16);
+  line-height: var(--line-height-tight);
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-2xl);
+  color: rgba(var(--color-gray-200-rgb), 0.8);
+  margin-bottom: var(--space-32);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: var(--space-16);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.btn-primary {
+  background: var(--color-teal-300);
+  color: var(--color-slate-900);
+  box-shadow: 0 0 20px rgba(50, 184, 198, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--color-teal-400);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 30px rgba(50, 184, 198, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-gray-200);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Pitch Deck Section */
+.pitch-deck {
+  min-height: 100vh;
+  padding: 100px var(--space-32) var(--space-32);
+  background: var(--color-background);
+}
+
+.deck-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.slide {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 60px;
+  min-height: 600px;
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-lg);
+  display: none;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.5s var(--ease-standard);
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-title {
+  font-size: 42px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-24);
+  color: var(--color-text);
+}
+
+.slide-subtitle {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-32);
+}
+
+.stat-card {
+  background: var(--color-bg-1);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-value {
+  font-size: 48px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-8);
+}
+
+.stat-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.features-list {
+  list-style: none;
+  margin-top: var(--space-32);
+}
+
+.features-list li {
+  padding: var(--space-16);
+  margin-bottom: var(--space-12);
+  background: var(--color-bg-2);
+  border-radius: var(--radius-base);
+  border-left: 3px solid var(--color-primary);
+  font-size: var(--font-size-lg);
+}
+
+.comparison-table {
+  width: 100%;
+  margin-top: var(--space-32);
+  border-collapse: collapse;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: var(--space-16);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comparison-table th {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+.check {
+  color: var(--color-primary);
+  font-size: var(--font-size-2xl);
+}
+
+.cross {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-2xl);
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-32);
+}
+
+.advantage-card {
+  background: var(--color-bg-3);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.advantage-card:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.advantage-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+}
+
+.advantage-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.traction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-32);
+}
+
+.traction-card {
+  background: var(--color-bg-4);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.traction-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-16);
+}
+
+.funding-box {
+  background: linear-gradient(135deg, rgba(50, 184, 198, 0.1) 0%, rgba(33, 128, 141, 0.05) 100%);
+  padding: var(--space-32);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  margin-top: var(--space-32);
+  border: 2px solid var(--color-primary);
+}
+
+.funding-ask {
+  font-size: 48px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-16);
+}
+
+.use-of-funds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-16);
+  margin-top: var(--space-24);
+}
+
+.fund-item {
+  background: var(--color-surface);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+}
+
+.fund-percentage {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-32);
+  margin-top: var(--space-32);
+}
+
+.team-card {
+  background: var(--color-bg-1);
+  padding: var(--space-32);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 1px solid var(--color-card-border);
+}
+
+.team-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-slate-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 auto var(--space-16);
+}
+
+.team-name {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-8);
+}
+
+.team-role {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.slide-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-32);
+}
+
+.control-btn {
+  background: var(--color-primary);
+  color: var(--color-slate-900);
+  border: none;
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.control-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  transform: scale(1.05);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.slide-dots {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.dot.active {
+  background: var(--color-primary);
+  width: 30px;
+  border-radius: var(--radius-full);
+}
+
+/* Interactive Demo Section */
+.demo {
+  min-height: 100vh;
+  padding: 100px var(--space-32) var(--space-32);
+  background: var(--color-background);
+}
+
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: var(--space-32);
+}
+
+.demo-title {
+  font-size: 42px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-16);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.chat-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.chat-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-400) 100%);
+  color: var(--color-slate-900);
+  padding: var(--space-16) var(--space-24);
+  font-weight: var(--font-weight-semibold);
+}
+
+.chat-messages {
+  height: 400px;
+  overflow-y: auto;
+  padding: var(--space-24);
+  background: var(--color-background);
+}
+
+.message {
+  margin-bottom: var(--space-16);
+  animation: messageSlide 0.3s var(--ease-standard);
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-user {
+  text-align: right;
+}
+
+.message-content {
+  display: inline-block;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-base);
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message-user .message-content {
+  background: var(--color-primary);
+  color: var(--color-slate-900);
+}
+
+.message-ai .message-content {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-card-border);
+}
+
+.message-model {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+}
+
+.typing-indicator {
+  display: inline-flex;
+  gap: var(--space-4);
+  padding: var(--space-12) var(--space-16);
+  background: var(--color-surface);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-card-border);
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: typing 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-10px); }
+}
+
+.chat-input-area {
+  padding: var(--space-16);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.chat-input-container {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.chat-input {
+  flex: 1;
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+}
+
+.chat-send {
+  padding: var(--space-12) var(--space-24);
+  background: var(--color-primary);
+  color: var(--color-slate-900);
+  border: none;
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.chat-send:hover {
+  background: var(--color-primary-hover);
+}
+
+.stats-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-md);
+}
+
+.stats-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-24);
+}
+
+.stat-item {
+  padding: var(--space-16);
+  margin-bottom: var(--space-12);
+  background: var(--color-bg-1);
+  border-radius: var(--radius-base);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+.stat-value-display {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-24);
+}
+
+.feature-card {
+  background: var(--color-surface);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  text-align: center;
+  transition: all var(--duration-normal) var(--ease-standard);
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) rotateX(5deg);
+  box-shadow: 0 10px 30px rgba(50, 184, 198, 0.2);
+}
+
+.feature-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-16);
+}
+
+.feature-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-8);
+}
+
+.feature-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+}
+
+/* Contact Section */
+.contact {
+  min-height: 60vh;
+  padding: 100px var(--space-32) var(--space-32);
+  background: linear-gradient(135deg, rgba(19, 52, 59, 1) 0%, rgba(31, 33, 33, 1) 100%);
+  text-align: center;
+}
+
+.contact-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-title {
+  font-size: 42px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-200);
+  margin-bottom: var(--space-24);
+}
+
+.contact-email {
+  font-size: var(--font-size-2xl);
+  color: var(--color-teal-300);
+  margin-bottom: var(--space-32);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.contact-email:hover {
+  text-decoration: underline;
+}
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.founder-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.founder-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-200);
+  margin-bottom: var(--space-8);
+}
+
+.founder-role {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+}
+
+.linkedin-link {
+  display: inline-block;
+  color: var(--color-teal-300);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--color-teal-300);
+  border-radius: var(--radius-base);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.linkedin-link:hover {
+  background: var(--color-teal-300);
+  color: var(--color-slate-900);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero-title { font-size: 36px; }
+  .slide { padding: var(--space-24); min-height: auto; }
+  .slide-title { font-size: 32px; }
+  .demo-grid { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; }
+}
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+<div class="nav-container">
+<a class="nav-logo" href="#hero">Allied AI</a>
+<ul class="nav-links">
+<li><a class="active" href="#hero">Home</a></li>
+<li><a href="#pitch-deck">Pitch Deck</a></li>
+<li><a href="#demo">Demo</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="hero" id="hero">
+<div class="hero-content">
+<div class="hero-logo">Allied AI</div>
+<h1 class="hero-title">The AI Operating System That Actually Works</h1>
+<p class="hero-subtitle">Unified AI Platform for Teams</p>
+<div class="hero-ctas">
+<a class="btn btn-primary" href="#pitch-deck">View Pitch Deck</a>
+<a class="btn btn-secondary" href="#demo">Try Interactive Demo</a>
+</div>
+</div>
+</section>
+<!-- Pitch Deck Section -->
+<section class="pitch-deck" id="pitch-deck">
+<div class="deck-container">
+<!-- Slide 1: Title -->
+<div class="slide active" data-slide="0">
+<h2 class="slide-title">Allied AI</h2>
+<p class="slide-subtitle" style="font-size: 28px; margin-bottom: 24px;">The AI Operating System That Actually Works</p>
+<p class="slide-subtitle">Unified AI Platform for Teams</p>
+</div>
+<!-- Slide 2: Problem -->
+<div class="slide" data-slide="1">
+<h2 class="slide-title">Teams Are Drowning in AI Tools</h2>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value">67%</div>
+<div class="stat-desc">of professionals waste 4-6 hours weekly switching between AI tools</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">$180-500</div>
+<div class="stat-desc">Average team monthly spend on fragmented AI subscriptions</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">Zero</div>
+<div class="stat-desc">visibility into AI spending and no budget controls</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">80%</div>
+<div class="stat-desc">of teams working in silos with no collaboration</div>
+</div>
+</div>
+</div>
+<!-- Slide 3: Solution -->
+<div class="slide" data-slide="2">
+<h2 class="slide-title">Allied AI: One Workspace for All AI</h2>
+<p class="slide-subtitle">A unified platform that connects 100+ AI models, intelligently routes tasks, tracks costs in real-time, and enables seamless team collaboration</p>
+<ul class="features-list">
+<li>100+ AI models integrated (ChatGPT, Claude, Gemini, Perplexity &amp; more)</li>
+<li>Intelligent auto-routing to best AI per task</li>
+<li>Real-time cost tracking per query</li>
+<li>Team collaboration and AI Operating System management</li>
+<li>Budget controls and spending alerts</li>
+<li>Bring Your Own Keys (BYOK) for cost reduction</li>
+</ul>
+</div>
+<!-- Slide 4: Why We're Different -->
+<div class="slide" data-slide="3">
+<h2 class="slide-title">Why We're Different</h2>
+<table class="comparison-table">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Allied AI</th>
+<th>Competitors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multi-AI Integration</td>
+<td><span class="check">✓</span></td>
+<td><span class="cross">✗</span></td>
+</tr>
+<tr>
+<td>Cost Tracking</td>
+<td><span class="check">✓</span></td>
+<td><span class="cross">✗</span></td>
+</tr>
+<tr>
+<td>Team Management</td>
+<td><span class="check">✓</span></td>
+<td><span class="cross">✗</span></td>
+</tr>
+<tr>
+<td>Budget Controls</td>
+<td><span class="check">✓</span></td>
+<td><span class="cross">✗</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Slide 5: Competitive Advantages -->
+<div class="slide" data-slide="4">
+<h2 class="slide-title">Competitive Advantages</h2>
+<div class="advantages-grid">
+<div class="advantage-card">
+<h3 class="advantage-title">True Cost Transparency</h3>
+<p class="advantage-desc">Only platform with per-query cost visibility</p>
+</div>
+<div class="advantage-card">
+<h3 class="advantage-title">Built for Teams &amp; Enterprises</h3>
+<p class="advantage-desc">10x bigger TAM than consumer-focused competitors</p>
+</div>
+<div class="advantage-card">
+<h3 class="advantage-title">Intelligent Orchestration</h3>
+<p class="advantage-desc">Smart routing to best AI model automatically</p>
+</div>
+<div class="advantage-card">
+<h3 class="advantage-title">BYOK Cost Reduction</h3>
+<p class="advantage-desc">Cut costs by up to 70%</p>
+</div>
+</div>
+</div>
+<!-- Slide 6: Early Traction -->
+<div class="slide" data-slide="5">
+<h2 class="slide-title">Early Traction &amp; Validation</h2>
+<div class="traction-grid">
+<div class="traction-card">
+<div class="traction-icon">🎯</div>
+<h3 class="advantage-title">Beta Testing Pipeline</h3>
+<p class="advantage-desc">Multiple agencies agreed to pilot</p>
+</div>
+<div class="traction-card">
+<div class="traction-icon">💬</div>
+<h3 class="advantage-title">Early Feedback</h3>
+<p class="advantage-desc">Save 4-6 hours/week, reduce costs 40%</p>
+</div>
+<div class="traction-card">
+<div class="traction-icon">⚡</div>
+<h3 class="advantage-title">MVP Development</h3>
+<p class="advantage-desc">Core features ready in 6 weeks</p>
+</div>
+</div>
+</div>
+<!-- Slide 7: Funding Ask -->
+<div class="slide" data-slide="6">
+<h2 class="slide-title">Our Funding Ask</h2>
+<div class="funding-box">
+<div class="funding-ask">₹1 Crore for 15% equity</div>
+<p class="slide-subtitle">Post-money: ₹10 Crore ($1.2M USD)</p>
+</div>
+<div class="use-of-funds">
+<div class="fund-item">
+<div class="fund-percentage">40%</div>
+<div class="stat-desc">Product Development</div>
+</div>
+<div class="fund-item">
+<div class="fund-percentage">35%</div>
+<div class="stat-desc">Hiring</div>
+</div>
+<div class="fund-item">
+<div class="fund-percentage">15%</div>
+<div class="stat-desc">Marketing</div>
+</div>
+<div class="fund-item">
+<div class="fund-percentage">10%</div>
+<div class="stat-desc">Operations</div>
+</div>
+</div>
+</div>
+<!-- Slide 8: Market Opportunity -->
+<div class="slide" data-slide="7">
+<h2 class="slide-title">The Market Opportunity</h2>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value">$5B+</div>
+<div class="stat-desc">TAM for B2B AI management</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">50,000+</div>
+<div class="stat-desc">Digital agencies globally</div>
+</div>
+<div class="stat-card">
+<div class="stat-value">40%</div>
+<div class="stat-desc">CAGR for AI market</div>
+</div>
+</div>
+</div>
+<!-- Slide 9: Team -->
+<div class="slide" data-slide="8">
+<h2 class="slide-title">Meet the Team</h2>
+<div class="team-grid">
+<div class="team-card">
+<div class="team-avatar">GK</div>
+<div class="team-name">Gaurav Kashyap</div>
+<div class="team-role">Founder &amp; CEO</div>
+</div>
+<div class="team-card">
+<div class="team-avatar">PC</div>
+<div class="team-name">Prince Chaurasia</div>
+<div class="team-role">Co-founder &amp; CTO</div>
+</div>
+</div>
+</div>
+<!-- Slide 10: Thank You -->
+<div class="slide" data-slide="9">
+<h2 class="slide-title">Let's Build the Future Together</h2>
+<p class="slide-subtitle" style="font-size: 24px; margin-bottom: 48px;">Contact us to discuss partnership opportunities</p>
+<div style="text-align: center;">
+<a class="btn btn-primary" href="#contact" style="font-size: 20px; padding: 20px 40px;">Get in Touch</a>
+</div>
+</div>
+<!-- Slide Controls -->
+<div class="slide-controls">
+<button class="control-btn" id="prevBtn">← Previous</button>
+<div class="slide-dots" id="slideDots"></div>
+<button class="control-btn" id="nextBtn">Next →</button>
+</div>
+</div>
+</section>
+<!-- Interactive Demo Section -->
+<section class="demo" id="demo">
+<div class="demo-container">
+<div class="demo-header">
+<h2 class="demo-title">Try the Interactive Demo</h2>
+<p class="slide-subtitle">Experience intelligent AI routing in action</p>
+</div>
+<div class="demo-grid">
+<div class="chat-panel">
+<div class="chat-header">AI Chat Interface</div>
+<div class="chat-messages" id="chatMessages">
+<div class="message message-ai">
+<div class="message-content">Hi! I'm Allied AI. Try asking me something with keywords like "write", "code", "search", or "creative" to see smart routing in action!</div>
+</div>
+</div>
+<div class="chat-input-area">
+<div class="chat-input-container">
+<input class="chat-input" id="chatInput" placeholder="Type your message..." type="text"/>
+<button class="chat-send" id="sendBtn">Send</button>
+</div>
+</div>
+</div>
+<div class="stats-panel">
+<h3 class="stats-title">Real-time Stats</h3>
+<div class="stat-item">
+<span class="stat-label">Total Queries</span>
+<span class="stat-value-display" id="totalQueries">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Total Cost</span>
+<span class="stat-value-display" id="totalCost">$0.00</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Models Used</span>
+<span class="stat-value-display" id="modelsUsed">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Last Model</span>
+<span class="stat-value-display" id="lastModel" style="font-size: 16px;">-</span>
+</div>
+</div>
+</div>
+<div class="feature-cards">
+<div class="feature-card">
+<div class="feature-icon">🎯</div>
+<h3 class="feature-title">Smart AI Routing</h3>
+<p class="feature-desc">Automatically routes to the best model</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">💰</div>
+<h3 class="feature-title">Cost Tracking</h3>
+<p class="feature-desc">Real-time per-query cost visibility</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🔗</div>
+<h3 class="feature-title">Thread Chain</h3>
+<p class="feature-desc">Chain conversations across models</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">👥</div>
+<h3 class="feature-title">Team Controls</h3>
+<p class="feature-desc">Manage access and permissions</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Inserted Google Form Survey -->
+<div style="padding:60px 20px; display:flex; justify-content:center;">
+<iframe frameborder="0" height="1400" marginheight="0" marginwidth="0" src="https://docs.google.com/forms/d/e/1FAIpQLSfjyuSBHZQyzGyxmD4KL7vUDZZCHhdfFIaIlnDvksOO8f0QQg/viewform?embedded=true" width="100%">Loading…</iframe>
+</div>
+<!-- Contact Section -->
+<section class="contact" id="contact">
+<div class="contact-content">
+<h2 class="contact-title">Let's Connect</h2>
+<a class="contact-email" href="mailto:gaurav06kashyap@gmail.com">gaurav06kashyap@gmail.com</a>
+<div class="founders-grid">
+<div class="founder-card">
+<div class="founder-name">Gaurav Kashyap</div>
+<div class="founder-role">Founder &amp; CEO</div>
+<a class="linkedin-link" href="https://www.linkedin.com/in/gaurav-kashyap-allied/" target="_blank">Connect on LinkedIn</a>
+</div>
+<div class="founder-card">
+<div class="founder-name">Prince Chaurasia</div>
+<div class="founder-role">Co-founder &amp; CTO</div>
+<a class="linkedin-link" href="https://www.linkedin.com/in/princechaurasia/" target="_blank">Connect on LinkedIn</a>
+</div>
+</div>
+<a class="btn btn-primary" href="#hero">Request a Demo</a>
+</div>
+</section>
+<script>
+        // Pitch Deck Navigation
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('slideDots');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+            });
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
+            if (isInput) return;
+
+            if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextBtn.click();
+            }
+        });
+
+        // Navigation scroll spy
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Interactive Demo
+        const aiModels = {
+            gpt4: { keywords: ['writing', 'email', 'content', 'professional'], cost: 0.03, name: 'GPT-4' },
+            claude: { keywords: ['code', 'programming', 'debug', 'developer'], cost: 0.025, name: 'Claude' },
+            perplexity: { keywords: ['search', 'latest', 'news', 'research'], cost: 0.02, name: 'Perplexity' },
+            gemini: { keywords: ['creative', 'brainstorm', 'idea', 'design'], cost: 0.015, name: 'Gemini' },
+            grapse: { keywords: ['research', 'study', 'academic', 'analysis'], cost: 0.028, name: 'Grapse' },
+            gamma: { keywords: ['presentation', 'slides', 'deck', 'pitch'], cost: 0.022, name: 'Gamma' },
+            grok: { keywords: ['help', 'support', 'guide', 'tutorial'], cost: 0.018, name: 'Grok' }
+        };
+
+        let stats = {
+            totalQueries: 0,
+            totalCost: 0,
+            modelsUsed: new Set(),
+            lastModel: '-'
+        };
+
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function detectModel(message) {
+            const lowerMessage = message.toLowerCase();
+            for (const [key, model] of Object.entries(aiModels)) {
+                if (model.keywords.some(keyword => lowerMessage.includes(keyword))) {
+                    return model;
+                }
+            }
+            return aiModels.gpt4; // Default
+        }
+
+        function addMessage(content, isUser, model = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'message-user' : 'message-ai'}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
+            messageDiv.appendChild(contentDiv);
+
+            if (model && !isUser) {
+                const modelDiv = document.createElement('div');
+                modelDiv.className = 'message-model';
+                modelDiv.textContent = `Routed to ${model.name} • $${model.cost.toFixed(3)}`;
+                messageDiv.appendChild(modelDiv);
+            }
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message message-ai';
+            typingDiv.id = 'typing';
+            typingDiv.innerHTML = `
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typingDiv = document.getElementById('typing');
+            if (typingDiv) typingDiv.remove();
+        }
+
+        function updateStats() {
+            document.getElementById('totalQueries').textContent = stats.totalQueries;
+            document.getElementById('totalCost').textContent = `$${stats.totalCost.toFixed(2)}`;
+            document.getElementById('modelsUsed').textContent = stats.modelsUsed.size;
+            document.getElementById('lastModel').textContent = stats.lastModel;
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            chatInput.value = '';
+
+            const model = detectModel(message);
+            stats.totalQueries++;
+            stats.totalCost += model.cost;
+            stats.modelsUsed.add(model.name);
+            stats.lastModel = model.name;
+
+            showTyping();
+
+            setTimeout(() => {
+                hideTyping();
+                const responses = [
+                    `Great question! I've routed this to ${model.name} for the best response. This is perfect for ${model.keywords[0]} tasks!`,
+                    `I'm using ${model.name} to handle this query. It's optimized for ${model.keywords[0]} and ${model.keywords[1]} tasks.`,
+                    `Routing to ${model.name}... This model excels at ${model.keywords[0]} related queries!`,
+                    `${model.name} is processing your request. Perfect match for ${model.keywords[0]} tasks!`
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(response, false, model);
+                updateStats();
+            }, 1500);
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Initialize stats
+        updateStats();
+    </script>
+</body>
+</html>
